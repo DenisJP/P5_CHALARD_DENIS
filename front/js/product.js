@@ -52,10 +52,12 @@ function getCurrentCart(){;
   //checking the localStorage 'cart' already exist
   if(localStorage.getItem('cart') === null){
     products = [];
-    localStorage.setItem('cart', JSON.stringify(products));
+    localStorage.setItem('cart', products);
   }
   else
     products = JSON.parse(localStorage.getItem('cart'));
+
+  console.log(products);
 }
 
 //adding the current product information sort by color to cart
@@ -95,7 +97,6 @@ function addToCart(){
     products[indexItem].number += number;
   }
 
-  console.log(products);
   //set the products list into the localStorage
   localStorage.setItem('cart', JSON.stringify(products));
 }
