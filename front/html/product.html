@@ -12,66 +12,6 @@
     <link href="../css/style.css" rel="stylesheet" />
     <link href="../css/product.css" rel="stylesheet" />
 
-    <script>
-
-     /*function addToCart(){
-        let product = 'test';
-        localStorage.setItem(product);
-
-        console.log(product);
-      };*/
-
-      const colorChoose = document.querySelector("#colors");
-      const quantityChoose = document.querySelector("#quantity");
-      let product ="";
-
-      function addToCart(){
-        const sendToCart_Button = document.querySelector("#addToCart");
-
-        let colors = colorChoose.value;
-        let quantity = quantityChoose.value;
-
-        let product = {
-
-          idProduct: id,
-          colorProduct: colorChoose,
-          quantity: Number(quantityChoose),
-          nameProduct: product.name,
-          priceProduct: product.price,
-          describeProduct: product.describe,
-          imgProduct: product.imageUrl,
-          altImg: product.altTxt
-
-        };
-
-        let productLocalStorage = JSON.parse(localStorage.getItem("product"));
-      };
-
-
-      //get url params
-      const url = window.location.href;
-      var paramsUrl = new URL(url);
-      var id = paramsUrl.searchParams.get('id');
-
-      //lets fetch in console first NUMBER ARE THE CURRENT PRODUCT ID
-      fetch("http://localhost:3000/api/products/"+id)
-      .then(function (response) {
-        return response.json();
-      }).then(function (data) {
-        console.log(data)
-        document.getElementById("title").innerHTML = data.name;
-        document.getElementById("price").innerHTML = data.price;
-        document.getElementById("description").innerHTML = data.description;
-        document.getElementsByClassName("item__img")[0].innerHTML = '<img src="'+data.imageUrl+'" alt="'+data.altTxt+'">';
-        data.colors.forEach(element => {
-          var div = document.createElement('option');
-          div.value = element;
-          div.text = element;
-          document.getElementById("colors").appendChild(div);
-        });
-      })
-      </script>
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
@@ -138,7 +78,7 @@
               </div>
 
               <div class="item__content__addButton">
-                <button id="addToCart">Ajouter au panier</button>
+                <button onClick="addToCart()" id="addToCart">Ajouter au panier</button>
               </div>
 
             </div>

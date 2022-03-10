@@ -11,34 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet" />
 
-    <script>
-      //detching data
-      fetch("http://localhost:3000/api/products")
-      .then(function (response) {
-        //getting the result as json
-        return response.json();
-      }).then(function (data) {
-        //sending data to the append function
-        appendData(data, "items");
-      })
-
-      //display the product
-      function appendData(data, div) {
-          var mainContainer = document.getElementById(div);
-          for (var i = 0; i < data.length; i++) {
-              var div = document.createElement("div");
-              div.innerHTML = 
-              '<a href="./product.html?id='+data[i]._id+'"> \
-                <article> \
-              <img src="'+ data[i].imageUrl +'" alt="'+ data[i].altTxt +'"> \
-              <h3 class="productName">'+ data[i].name +'</h3> \
-              <p class="productDescription">'+data[i].description+'</p> \
-            </article> \
-          </a>';
-              mainContainer.appendChild(div);
-          }
-      }
-      </script> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
 
