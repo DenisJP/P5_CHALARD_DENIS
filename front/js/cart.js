@@ -57,11 +57,11 @@ function removeFromCart(id,color){
 
   //filter the product to search for existant product in localStorage
   var indexItem = products.findIndex(
-    element => element.color == color && element.id == id
+    element => element.color == color && element.id == id 
   );
 
   //if the current product and color does no exist
-  products = products.slice(indexItem, 1);
+  products.slice(indexItem, 1);
   console.log(products);
 
   //set the products list into the localStorage
