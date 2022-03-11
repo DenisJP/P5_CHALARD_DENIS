@@ -61,8 +61,8 @@ function addToCart(){
     document.getElementById('addToCart').innerHTML = "Veuillez choisir une couleur";
   // break the loop
     return false;
-  }else if(number == 0){
-    document.getElementById('addToCart').innerHTML = "1 article minimum";
+  }else if(number < 1 || number > 100){
+    document.getElementById('addToCart').innerHTML = "1-100 Article(s) obligatoire";
     return false;
   }else{
     document.getElementById('addToCart').innerHTML = "Article(s) ajouté(s)";
