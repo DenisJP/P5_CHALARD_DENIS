@@ -1,3 +1,11 @@
+/*
+*
+* fetching one data from api
+* displaying on data
+* adding one data into localstorage
+*
+*/
+
 //getting the current URL as string
 const url = window.location.href;
 //convert the URL as url object

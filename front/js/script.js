@@ -1,3 +1,10 @@
+/*
+*
+* fetching data from api
+* displaying data
+*
+*/
+
 //fetching data from API
 fetch("http://localhost:3000/api/products")
 .then(function (response) {
