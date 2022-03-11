@@ -13,10 +13,9 @@ var productCartData = {
   "price": 0,
   "number": 0,
   "imageUrl": "",
-  "altTxt": ""
+  "altTxt": "",
+  "uuid": ""
 };
-
-var products = [];
 
 //fetching data from API using ID to get one product only
 fetch("http://localhost:3000/api/products/"+id)
@@ -30,7 +29,7 @@ fetch("http://localhost:3000/api/products/"+id)
   document.getElementById("price").innerHTML = data.price;
   productCartData.price = data.price;
   document.getElementById("description").innerHTML = data.description;
-  document.getElementsByClassName("item__img")[0].innerHTML = '<img src="'+data.imageUrl+'" alt="'+data.altTxt+'">';
+  document.querySelector(".item__img").innerHTML = '<img src="'+data.imageUrl+'" alt="'+data.altTxt+'">';
   productCartData.imageUrl = data.imageUrl;
   productCartData.altTxt = data.altTxt;
 
@@ -47,54 +46,46 @@ fetch("http://localhost:3000/api/products/"+id)
   });
 })
 
-//getting the current localStorage
-function getCurrentCart(){;
-  //checking the localStorage 'cart' already exist
-  if(localStorage.getItem('cart') === null){
-    products = [];
-    localStorage.setItem('cart', products);
-  }
-  else
-    products = JSON.parse(localStorage.getItem('cart'));
-
-  console.log(products);
-}
-
 //adding the current product information sort by color to cart
 function addToCart(){
-  getCurrentCart();
+  var products = JSON.parse(localStorage.getItem('cart') || "[]");
   //getting the current product color select
   var color = document.querySelector("#colors").value;
   //getting the current product quantity number select
   var number = parseInt(document.querySelector("#quantity").value);
+  //getting the uuid
+  var uuid = id.toString()+color.toString();
   
-  //filter for search product in the localStorage
-  var filter = {
-    color: color,
-    id: id
-  };
+  //checking input
+  if(color == ""){
+    document.getElementById('addToCart').innerHTML = "Veuillez choisir une couleur";
+  // break the loop
+    return false;
+  }else if(number == 0){
+    document.getElementById('addToCart').innerHTML = "1 article minimum";
+    return false;
+  }else{
+    document.getElementById('addToCart').innerHTML = "Article(s) ajouté(s)";
+  }
 
   //filter the product to search for existant product in localStorage
-  var result = products.filter(function(item) {
-    for (var key in filter) {
-      if (item[key] === undefined || item[key] != filter[key])
-        return false;
-      else
-        indexItem = products.indexOf(item);
-    }
-    return true;
+  var result = products.findIndex(product => {
+    return product.uuid === uuid;
   });
 
   //if the current product and color does no exist
-  if(result.length === 0){
+  if(result === -1 ){
     //set the product color
     productCartData.color = color;
     //set the product quantity
     productCartData.number = number;
+    //ser the uuid of the item
+    productCartData.uuid = uuid;
     //add the product to the current products list
     products.push(productCartData);
   }else{
-    products[indexItem].number += number;
+    products[result].number = number;
+    document.getElementById('addToCart').innerHTML = "Nombre de l'article mise à jour: " + number;
   }
 
   //set the products list into the localStorage

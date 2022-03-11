@@ -9,9 +9,9 @@ fetch("http://localhost:3000/api/products")
 })
 
 
-function appendData(data, div) {
-  //setting the div that will contain our display
-  var productContainer = document.getElementById(div);
+function appendData(data, section) {
+  //getting the sectionok see you that will contain our display
+  var productContainer = document.getElementById(section);
       //foreach product in our data we get from API
       data.forEach(product => {
         //create an HTML a element for the current product in the loop

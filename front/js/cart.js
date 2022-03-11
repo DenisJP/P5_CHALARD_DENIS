@@ -1,15 +1,4 @@
-var products = [];
-
-//getting the current localStorage
-function getCurrentCart(){;
-  //checking the localStorage 'cart' already exist
-  if(localStorage.getItem('cart') === null){
-    products = [];
-    localStorage.setItem('cart', JSON.stringify(products));
-  }
-  else
-    products = JSON.parse(localStorage.getItem('cart'));
-}
+var products = JSON.parse(localStorage.getItem('cart') || "[]");
 
 //displaying cart
 function displayCart(products){
@@ -49,50 +38,35 @@ function displayCart(products){
 
 //deleting product
 function removeFromCart(id,color){
-  //filter for search product in the localStorage
-  var filter = {
-    color: color,
-    id: id
-  };
-
-  //filter the product to search for existant product in localStorage
-  var indexItem = products.findIndex(
-    element => element.color == color && element.id == id 
-  );
-
   //if the current product and color does no exist
-  products.slice(indexItem, 1);
-  console.log(products);
+  products = products.filter((item) => (item.uuid !== id.toString()+color.toString()));
 
   //set the products list into the localStorage
   localStorage.setItem('cart', JSON.stringify(products));
-  getCurrentCart();
+
+  //displaying product
   displayCart(products);
 }
 
 //updating product
 function updatingFromCart(id,color){
   var number = parseInt(document.querySelector("[data-id='"+id+"'][data-color='"+color+"'] .itemQuantity").value);
-
-  //filter for search product in the localStorage
-  var filter = {
-    color: color,
-    id: id
-  };
+  var uuid = id.toString()+color.toString();
 
   //filter the product to search for existant product in localStorage
-  var indexItem = products.findIndex(
-    element => element.color == color && element.id == id
-  );
+  var result = products.findIndex(product => {
+    return product.uuid === uuid;
+  });
 
   //if the current product and color does no exist
-  products[indexItem].number = number;
+  products[result].number = number;
 
   //set the products list into the localStorage
   localStorage.setItem('cart', JSON.stringify(products));
-  getCurrentCart();
+
+  //displaying product
   displayCart(products);
 }
 
-getCurrentCart();
+//displaying product
 displayCart(products);
