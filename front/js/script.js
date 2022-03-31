@@ -17,7 +17,7 @@ fetch("http://localhost:3000/api/products")
 
 
 function appendData(data, section) {
-  //getting the sectionok see you that will contain our display
+  //getting the section that will contain our display
   var productContainer = document.getElementById(section);
       //foreach product in our data we get from API
       data.forEach(product => {
