@@ -93,7 +93,7 @@ function addToCart(){
     products.push(productCartData);
   }else{
     products[result].number = number;
-    document.getElementById('addToCart').innerHTML = "Nombre de l'article mise à jour: " + number;
+    document.getElementById('addToCart').innerHTML = "Nombre d'article mise à jour: " + number;
   }
 
   //set the products list into the localStorage
