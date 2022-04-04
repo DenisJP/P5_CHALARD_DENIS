@@ -1,3 +1,4 @@
+// prevent the page to reload
 document.querySelector(".cart__order__form").addEventListener("submit", function(event){
   event.preventDefault()
 });
@@ -100,21 +101,24 @@ function orderProduct(inputFn, inputLn, inputAd, inputCt, inputEm){
   };
 
   var orderId = "";
-
+  //send order to api
     fetch('http://localhost:3000/api/products/order', {
       method: 'POST',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json'
       },
+    //data to json
       body: JSON.stringify({
         contact: contact,
         products: arrayProduct
       })
     })
     .then((response) => response.json())
+    //define the orderId as the ID sent by api
     .then(product => {
       orderId = product.orderId
+    //redirect user to the page with the orderID (confirmation page )
     }).then(response => {
       window.location.href = "./confirmation.html?orderId="+orderId;
     })
