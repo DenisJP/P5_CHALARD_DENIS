@@ -92,8 +92,9 @@ function addToCart(){
     //add the product to the current products list
     products.push(productCartData);
   }else{
-    products[result].number = number;
-    document.getElementById('addToCart').innerHTML = "Nombre d'article mis à jour: " + number;
+    products[result].number += number;
+    //MODIFICATIONS
+    document.getElementById('addToCart').innerHTML = "Nombre d'article mis à jour ";//+ number
   }
 
   //set the products list into the localStorage
